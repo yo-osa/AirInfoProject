@@ -1,0 +1,627 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(
+        120deg,
+        #181f3a 0%,   /* very deep navy */
+        #263159 40%,
+        #1a2238 100%  /* deep blue at bottom */
+    );
+    background-attachment: fixed;
+}
+
+
+.airbuddy-title {
+    font-family: 'Bebas Neue', 'Segoe UI', Arial, sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: #e0e6f7;
+    text-shadow: 1px 1px 8px #181f3a, 0 0 10px #263159;
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #232946;
+    border-radius: 18px;
+    padding: 1.2rem 3rem;
+    box-shadow: 0 2px 24px #181f3a99;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 8px solid #232946;
+    border-image: none;
+    position: relative;
+    overflow: hidden;
+}
+.airbuddy-title .plane-emoji {
+    font-size: 1.2em;
+    margin: 0 0.3em;
+    filter: drop-shadow(0 2px 4px #232946);
+    animation: none;
+}
+
+.airbuddy-title img {
+    height: 60px;
+    width: auto;
+    vertical-align: middle;
+}
+
+/* Decorative plane image at the bottom right */
+.plane-bottom {
+    position: fixed;
+    right: 2vw;
+    bottom: 2vw;
+    width: 120px;
+    opacity: 0.85;
+    z-index: 10;
+}
+
+/* Card and table styling for clarity */
+.table th, .table td {
+    vertical-align: middle;
+    background: rgba(255,255,255,0.9);
+}
+
+/* --- Main Grid Layout for Homepage --- */
+.main-grid-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main";
+  min-height: 100vh;
+  background: linear-gradient(120deg, #181f3a 0%, #263159 40%, #1a2238 100%);
+}
+
+.main-header {
+  grid-area: header;
+  padding: 2rem 2rem 1rem 2rem;
+  background: #232946;
+  box-shadow: 0 2px 24px #181f3a99;
+  z-index: 2;
+}
+
+.main-sidebar {
+  grid-area: sidebar;
+  background: #232946;
+  color: #e0e6f7;
+  padding: 2rem 1.5rem 2rem 2rem;
+  border-right: 3px solid #181f3a;
+  min-width: 260px;
+  max-width: 340px;
+  box-shadow: 2px 0 24px #181f3a33;
+  z-index: 1;
+}
+
+.main-content {
+  grid-area: main;
+  padding: 2.5rem 3rem 2.5rem 2rem;
+  background: none;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .main-grid-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "main";
+  }
+  .main-sidebar {
+    border-right: none;
+    border-bottom: 3px solid #181f3a;
+    box-shadow: 0 2px 24px #181f3a33;
+    padding: 1.5rem 1rem;
+    max-width: 100vw;
+  }
+  .main-header {
+    padding: 1.5rem 1rem 1rem 1rem;
+  }
+  .main-content {
+    padding: 1.5rem 0.5rem;
+  }
+}
+
+/* Sidebar form and info tweaks */
+.main-sidebar form, .main-sidebar .card, .main-sidebar .alert {
+  background: #232946 !important;
+  color: #e0e6f7 !important;
+  border-radius: 10px;
+}
+.main-sidebar h4, .main-sidebar h5 {
+  color: #f06292;
+  margin-top: 1.5rem;
+}
+.main-sidebar a { color: #90caf9; }
+.main-sidebar a:hover { color: #f06292; }
+
+.main-header .airbuddy-title {
+  margin-bottom: 0;
+  font-size: 3.5rem;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  text-align: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', 'Segoe UI', Arial, sans-serif;
+  letter-spacing: 2px;
+}
+
+.container > .airbuddy-title,
+.container > h1,
+.container > form,
+.container > .mb-4{
+    color:white;
+}
+.container > .list-group,
+.container > .text-muted,
+.container > hr {
+    grid-column: 1;
+}
+
+.container > #insights,
+.container > .table-responsive,
+.container > .alert-info,
+.container > .alert-warning,
+.container > .mb-4
+.container > h3,
+.container > .alert-danger {
+    grid-column: 2;
+}
+
+@media (max-width: 900px) {
+  .container > * {
+    grid-column: 1 !important;
+  }
+}
+
+/* Remove excessive margin for grid layout */
+.container > hr {
+    margin: 1.2rem 0;
+}
+
+/* Ensure .airbuddy-title spans both columns at the top */
+.container > .airbuddy-title {
+    grid-column: 1 / -1;
+    margin-bottom: 1.5rem;
+}
+
+/* Adjust h1 to align with form */
+.container > h1 {
+    margin-bottom: 1.2rem;
+    margin-top: 0;
+}
+
+.btn-success {
+    background: #388e3c;
+    border: none;
+}
+
+.alert-info {
+    font-size: 1.1em;
+}
+
+.bar-chart { max-width: 400px; }
+.bar {
+  background: #2196f3;
+  color: #fff;
+  margin: 4px 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+
+.form-label {
+    color: #232946;
+    font-weight: 600;
+}
+.form-control:focus {
+    border-color: #f06292;
+    box-shadow: 0 0 0 0.2rem #f8bbd055;
+}
+.input-group .btn {
+    background: #f06292;
+    color: #fff;
+    border: none;
+}
+.input-group .btn:hover {
+    background: #d81b60;
+}
+
+/* Colorful buttons */
+.btn-primary {
+    background: #263159;
+    color: #e0e6f7;
+    border: none;
+}
+.btn-primary:hover {
+    background: #232946;
+    color: #fff;
+}
+.btn-info {
+    background: #232946;
+    color: #e0e6f7;
+    border: none;
+}
+.btn-info:hover {
+    background: #263159;
+    color: #fff;
+}
+
+/* Alternate list group item backgrounds for airline codes */
+.list-group-item:nth-child(odd) {
+    background: #a2a7bd;
+    color: #232946;
+}
+.list-group-item:nth-child(even) {
+    background: #181f3a;
+    color:#a2a7bd;
+}
+.list-group-item strong {
+    color: #f8fafd !important;
+    text-shadow: 0 1px 6px #23294699, 0 0 2px #fff;
+}
+
+h1, h3, h4, h5 {
+    color: #e0e6f7;
+    text-shadow: 0 1px 8px #181f3a;
+}
+.alert-info, .alert-danger {
+    border-radius: 8px;
+    border-width: 2px;
+}
+
+
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 100;
+  background: #232946;
+  color: #f06292;
+  border: none;
+  font-size: 1.4rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #181f3a55;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.sidebar-toggle-btn:hover {
+  background: #f06292;
+  color: #232946;
+}
+
+/* Sidebar overlay and hidden state */
+.main-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 340px;
+  max-width: 90vw;
+  background: #232946;
+  color: #e0e6f7;
+  box-shadow: -2px 0 24px #181f3a99;
+  z-index: 200;
+  overflow-y: auto;
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+}
+.sidebar-hidden {
+  transform: translateX(110%);
+  pointer-events: none;
+}
+.close-sidebar {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  color: #f06292;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 201;
+}
+.close-sidebar:hover {
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .main-sidebar {
+    width: 95vw;
+    max-width: 95vw;
+    padding: 1.5rem 1rem;
+  }
+  .sidebar-toggle-btn {
+    top: 1.2rem;
+    right: 1.2rem;
+    font-size: 1.2rem;
+    padding: 0.4rem 1rem;
+  }
+}
+
+/* Remove sidebar from grid flow when overlayed */
+.main-grid-layout {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "main";
+}
+
+.song, .song-title, .song-lyrics {
+    background: #e3f2fd;
+    color: #181f3a;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px #181f3a22;
+    font-weight: 500;
+    font-size: 1.1rem;
+    word-break: break-word;
+}
+
+.text-muted {
+    color: #444a5a !important;
+}
+
+.main-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.3fr;
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+.search-section {
+  min-width: 0;
+}
+.iata-section {
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  .main-content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Footer styles */
+.main-footer {
+  background: #181f3a;
+  color: #e0e6f7;
+  padding: 2.5rem 0 1.2rem 0;
+  border-top: 3px solid #232946;
+  font-size: 1.08rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 1000;
+  margin-top: 60px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1fr;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+.footer-section {
+  min-width: 0;
+}
+.footer-section h5 {
+  color: #f06292;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+.footer-links a {
+  color: #90caf9;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: #f06292;
+  text-decoration: underline;
+}
+.footer-faq strong {
+  display: block;
+  margin-top: 0.7em;
+  color: #e0e6f7;
+}
+.footer-faq div {
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+  color: #b0b8d1;
+}
+.footer-copyright {
+  font-size: 0.98em;
+  color: #b0b8d1;
+  margin-top: 2.5rem;
+}
+@media (max-width: 900px) {
+  .main-footer {
+    margin-top: 40px;
+    padding: 2rem 0 1rem 0;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    max-width: 100vw;
+  }
+  .footer-section {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* AirInfo Hero Title - no glow */
+.airinfo-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', 'Segoe UI', Arial, sans-serif;
+  font-size: 8rem;
+  font-weight: 900;
+  color: #e0e6f7;
+  letter-spacing: 10px;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  background: none;
+  border: none;
+  position: relative;
+  z-index: 10;
+  animation: airinfo-fadein 1.2s cubic-bezier(.4,2,.6,1);
+}
+.airinfo-hero .plane-emoji {
+  font-size: 1.3em;
+  margin: 0 0.4em;
+  filter: drop-shadow(0 2px 4px #232946);
+  animation: plane-bounce 2.5s infinite cubic-bezier(.4,2,.6,1);
+}
+.airinfo-hero .airinfo-text {
+  display: inline-block;
+  animation: airinfo-pulse 2.5s infinite alternate cubic-bezier(.4,2,.6,1);
+}
+@keyframes airinfo-fadein {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes airinfo-pulse {
+  0% { color: #e0e6f7; }
+  100% { color: #f06292; }
+}
+@keyframes plane-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px) scale(1.1); }
+}
+@media (max-width: 900px) {
+  .airinfo-hero {
+    font-size: 3.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 2px;
+  }
+}
+
+/* Footer slide toggle */
+.footer-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition: opacity 0.8s, transform 2s cubic-bezier(.4,2,.6,1);
+}
+.footer-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 0.8s, transform 2s cubic-bezier(.4,2,.6,1);
+}
+
+/* Runway and animated plane styles - night sky with trail */
+.runway-wrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  margin-top: -1.5rem;
+  z-index: 5;
+  position: relative;
+}
+.runway {
+  width: 70vw;
+  max-width: 900px;
+  height: 38px;
+  background: linear-gradient(90deg, #181f3a 80%, #232946 100%);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #181f3a99;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+/* Add subtle stars to the runway */
+.runway::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, #fff 1.2px, transparent 1.2px),
+    radial-gradient(circle, #fff 0.8px, transparent 0.8px),
+    radial-gradient(circle, #b3e5fc55 1.2px, transparent 1.2px);
+  background-size: 80px 40px, 120px 60px, 200px 100px;
+  background-position: 10px 10px, 60px 30px, 120px 20px;
+  opacity: 0.18;
+  z-index: 1;
+}
+.runway-plane {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  animation: plane-runway-move 5s linear infinite;
+  z-index: 10;
+}
+/* Glowing trail behind the plane */
+.runway-plane::before {
+  content: '';
+  position: absolute;
+  left: -120px;
+  top: 50%;
+  width: 110px;
+  height: 10px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.1) 100%);
+  filter: blur(2.5px);
+  border-radius: 6px;
+  z-index: 2;
+  pointer-events: none;
+}
+@keyframes plane-runway-move {
+  0% { left: 0; }
+  100% { left: calc(100% - 2.5em); }
+}
+@media (max-width: 900px) {
+  .runway {
+    width: 95vw;
+    height: 22px;
+    max-width: 100vw;
+  }
+  .runway-plane {
+    font-size: 1.5rem;
+  }
+  .runway-plane::before {
+    left: -60px;
+    width: 55px;
+    height: 6px;
+  }
+}
+
+.footer-contact {
+  color: #e0e6f7;
+  font-size: 1.05em;
+  margin-top: 0.5em;
+}
+.footer-contact p {
+  margin-bottom: 0.3em;
+} 

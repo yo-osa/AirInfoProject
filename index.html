@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirInfo Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- AirInfo Title -->
+    <div class="airinfo-hero">
+        <span class="plane-emoji">✈️</span>
+        <span class="airinfo-text">AirInfo</span>
+        <span class="plane-emoji">🛫</span>
+    </div>
+    <!--Runway and animated plane-->
+    <div class="runway-wrapper">
+        <div class="runway">
+            <span class="runway-plane" role="img" aria-label="plane">✈️</span>
+        </div>
+    </div>
+    <div class="main-grid-layout">
+        <!-- Header -->
+        <header class="main-header">
+            <!-- Sidebar toggle button removed -->
+        </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="main-content-grid">
+                <div class="search-section">
+                    <h1 class="mb-4">Search Your Flight</h1>
+                    <p class="lead mb-4" style="color:#e0e6f7; background:#232946; border-radius:10px; padding:1rem;">Airline information is retrieved in real-time from the AviationStack API, which aggregates global flight data. Enter an Australian airline's IATA code and your API key to get live flight schedules, statuses, and AI-powered insights. This dashboard helps you explore popular routes, demand trends, and more for Australian airlines.</p>
+                    <form method="post" action="/scrape" class="p-4 rounded shadow-sm" style="background: linear-gradient(90deg, #e3f2fd 60%, #fff9c4 100%); border: 2px solid #f06292;">
+                        {% if error %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endif %}
+                        <div class="mb-3">
+                            <label for="airline" class="form-label">Airline IATA Code</label>
+                            <input type="text" class="form-control border border-info" id="airline" name="airline" placeholder="e.g. QF, JQ, VA" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="aviationstack_api_key" class="form-label">AviationStack API Key</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control border border-warning" id="aviationstack_api_key" name="aviationstack_api_key" placeholder="Enter your AviationStack API key" {% if not error %}value=""{% endif %} required>
+                                <button class="btn btn-outline-secondary" type="button" id="toggleApiKey" onclick="toggleApiKeyVisibility()">Show API Key</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="time_range" class="form-label">Time Range</label>
+                            <select class="form-control border border-success" id="time_range" name="time_range">
+                                <option value="any">Any</option>
+                                <option value="morning">Morning (05:00-12:00)</option>
+                                <option value="afternoon">Afternoon (12:00-17:00)</option>
+                                <option value="evening">Evening (17:00-23:00)</option>
+                                <option value="night">Night (23:00-05:00)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Flight Status</label>
+                            <select class="form-control border border-danger" id="status" name="status">
+                                <option value="any">Any</option>
+                                <option value="scheduled">Scheduled only</option>
+                            </select>
+                        </div>
+                        <script>
+                        function toggleApiKeyVisibility() {
+                            var input = document.getElementById('aviationstack_api_key');
+                            var btn = document.getElementById('toggleApiKey');
+                            if (input.type === 'password') {
+                                input.type = 'text';
+                                btn.textContent = 'Hide API Key';
+                            } else {
+                                input.type = 'password';
+                                btn.textContent = 'Show API Key';
+                            }
+                        }
+                        </script>
+                        <button type="submit" class="btn btn-primary">Get Insights</button>
+                    </form>
+                </div>
+                <div class="iata-section">
+                    <h2 class="mb-3" style="color:#f06292;">What is IATA?</h2>
+                    <div style="background:#232946; color:#e0e6f7; border-radius:10px; padding:1.2rem; font-size:1.1rem;">
+                        <p><strong>IATA</strong> stands for the <strong>International Air Transport Association</strong>. It is a global trade association for airlines, and it assigns unique two-letter codes (IATA codes) to airlines and airports worldwide. These codes are used to identify airlines (like <b>QF</b> for Qantas, <b>JQ</b> for Jetstar) and airports in flight schedules, tickets, and data systems.</p>
+                        <ul>
+                            <li><b>Airline IATA Code:</b> A two-letter code (e.g., QF, JQ, VA) that uniquely identifies an airline.</li>
+                            <li><b>Why is it important?</b> It ensures accuracy and consistency in airline and airport identification across the world.</li>
+                        </ul>
+                        <p>When searching for flights, use the correct IATA code for the airline you are interested in.</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-4" style="color: #f06292;">
+                <h5>Common IATA Codes for Airlines that Operate in Australia</h5>
+                <ul class="list-group list-group-flush rounded shadow-sm">
+                    <li class="list-group-item"><strong>QF</strong> – Qantas</li>
+                    <li class="list-group-item"><strong>JQ</strong> – Jetstar</li>
+                    <li class="list-group-item"><strong>VA</strong> – Virgin Australia</li>
+                    <li class="list-group-item"><strong>Rex</strong> – Regional Express</li>
+                    <li class="list-group-item"><strong>TT</strong> – Tigerair Australia (ceased, but may appear in data)</li>
+                    <li class="list-group-item"><strong>ZL</strong> – Regional Express (Rex, alternate code)</li>
+                    <li class="list-group-item"><strong>QO</strong> – Origin Pacific Airways (historical, may appear in some datasets)</li>
+                    <li class="list-group-item"><strong>FC</strong> – Fly Corporate</li>
+                    <li class="list-group-item"><strong>XR</strong> – Regional Express (Rex, alternate code)</li>
+                </ul>
+                <div class="text-muted mt-2">Enter the two-letter IATA code for your airline above. For more, see <a href="https://en.wikipedia.org/wiki/List_of_airlines_of_Australia" target="_blank">this list</a>.</div>
+            </div>
+            <hr>
+            <!-- Chart and table placeholders -->
+            <div id="insights">
+                {% if insights %}
+                    {% if insights.error %}
+                        <div class="alert alert-danger">{{ insights.error }}</div>
+                    {% else %}
+                        <h3>Flights Data (via Gemini AI)</h3>
+                        <h3>Insights for {{ origin }} to {{ destination }} on {{ date }}</h3>
+                        <p><strong>Total Flights:</strong> {{ insights.total_flights }}</p>
+                        <h5>Popular Routes</h5>
+                        <table class="table table-bordered">
+                            <thead><tr><th>Route</th><th>Flights</th></tr></thead>
+                            <tbody>
+                            {% for route, count in insights.popular_routes %}
+                                <tr><td>{{ route }}</td><td>{{ count }}</td></tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <h5>High Demand Periods</h5>
+                        <ul>
+                            {% for period, count in insights.high_demand_periods %}
+                                <li>{{ period }}: {{ count }} flights</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <hr>
+        </main>
+    </div>
+    <!-- Footer -->
+    <footer class="main-footer mt-5 footer-hidden">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h5>More Flights IATA Lists</h5>
+          <ul class="footer-links">
+            <li><a href="https://en.wikipedia.org/wiki/List_of_airlines_of_Australia" target="_blank">Australian Airlines (Wikipedia)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/List_of_airlines" target="_blank">Global Airlines (Wikipedia)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/List_of_airports_in_Australia" target="_blank">Australian Airports</a></li>
+            <li><a href="https://www.iata.org/en/publications/directories/code-search/" target="_blank">IATA Code Search (Official)</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h5>FAQ</h5>
+          <div class="footer-faq">
+            <strong>Q: What is an IATA code?</strong>
+            <div>A: A unique two-letter code assigned to airlines and airports by the International Air Transport Association.</div>
+            <strong>Q: Why do I need an API key?</strong>
+            <div>A: The API key allows you to access live flight data from AviationStack.</div>
+            <strong>Q: Can I search for non-Australian airlines?</strong>
+            <div>A: This dashboard is focused on Australian airlines, but you can try other IATA codes as well.</div>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h5>Contact</h5>
+          <div class="footer-contact">
+            <p><strong>Email:</strong> maitreyeegore115@gmail.com</p>
+            <p><strong>Phone:</strong> +91 9067400949</p>
+            <p><strong>Hours:</strong> 9:00 AM – 8:00 PM (IST), Mon–Sat</p>
+            <p>For urgent queries, please mention "URGENT" in your message subject.</p>
+          </div>
+        </div>
+        <div class="footer-section footer-copyright">
+          <div>&copy; {{ year|default(2024) }} AirInfo Dashboard<br>Made with Flask</div>
+        </div>
+      </div>
+    </footer>
+    <script>
+    // Footer toggle on scroll to bottom
+    window.addEventListener('scroll', function() {
+      var footer = document.querySelector('.main-footer');
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
+        footer.classList.remove('footer-hidden');
+        footer.classList.add('footer-visible');
+      } else {
+        footer.classList.remove('footer-visible');
+        footer.classList.add('footer-hidden');
+      }
+    });
+    </script>
+</body>
+</html> 
